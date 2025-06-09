@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="group1_solar_flare_2_final_files/libs/clipboard/clipboard.min.js"></script>
+<script src="group1_solar_flare_2_final_files/libs/quarto-html/tabby.min.js"></script>
+<script src="group1_solar_flare_2_final_files/libs/quarto-html/popper.min.js"></script>
+<script src="group1_solar_flare_2_final_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="group1_solar_flare_2_final_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="group1_solar_flare_2_final_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="group1_solar_flare_2_final_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.31">
+
+  <meta name="dcterms.date" content="2025-06-09">
+  <title>Solar Flares Space Weather Data Analysis</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="group1_solar_flare_2_final_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="group1_solar_flare_2_final_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="group1_solar_flare_2_final_files/libs/revealjs/dist/theme/quarto-8a5cdbf101a0845817b98f2425171703.css">
+  <link href="group1_solar_flare_2_final_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="group1_solar_flare_2_final_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="group1_solar_flare_2_final_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="group1_solar_flare_2_final_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Solar Flares Space Weather Data Analysis</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ingabire Florence 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Uwase Hadidja 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Umwali Noella 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-06-09</p>
+</section>
+<section class="slide level2">
+
+<div id="c04bb780-07dc-4159-8d06-af3cd4b57704" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="ba113d7b-9c6b-428b-b700-78c86e621307" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>df_nasa <span class="op">=</span> pd.read_csv(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">Users</span><span class="dv">\S</span><span class="vs">MRC</span><span class="dv">\D</span><span class="vs">esktop</span><span class="er">\</span><span class="vs">Tekher</span><span class="er">\</span><span class="vs">TekHer-Python-Basics</span><span class="ch">\n</span><span class="vs">asa_type2_radio_bursts</span><span class="dv">.</span><span class="vs">csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="5fca9012-d6a0-4331-80dd-a509d5cdd32c" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>missing_indicators <span class="op">=</span> [<span class="st">'-----'</span>, <span class="st">'----'</span>, <span class="st">'---'</span>, <span class="st">'--'</span>, <span class="st">'-'</span>, <span class="st">'...'</span>, <span class="st">'------'</span>, <span class="st">'-- --'</span>, <span class="st">'-- --'</span>, <span class="st">'- ---'</span>, <span class="st">'-:-- -'</span>, <span class="st">':'</span>,<span class="st">''</span>, <span class="st">'Ha'</span>, <span class="st">'NaN'</span>, <span class="st">'nan'</span>]</span>
+<span id="cb3-2"><a href=""></a><span class="cf">for</span> indicator <span class="kw">in</span> missing_indicators:</span>
+<span id="cb3-3"><a href=""></a>    df_nasa.replace(indicator, np.nan, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="bf99e0fb-6d78-4b76-a96e-6ca15bab10ef" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>df_nasa[<span class="st">'width_lower_bound'</span>] <span class="op">=</span> df_nasa[<span class="st">'cme_width'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.contains(<span class="vs">r"</span><span class="pp">[+&gt;]</span><span class="vs">"</span>)</span>
+<span id="cb4-2"><a href=""></a>df_nasa[<span class="st">'cme_width'</span>] <span class="op">=</span> pd.to_numeric(df_nasa[<span class="st">'cme_width'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)[<span class="dv">0</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb4-3"><a href=""></a><span class="co">#df_nasa.head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="07cd5630-6d10-4cb8-aa19-cb75e810d5a3" class="cell" data-execution_count="27">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>df_nasa[<span class="st">'start_datetime'</span>] <span class="op">=</span> pd.to_datetime(df_nasa[<span class="st">'start_date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> df_nasa[<span class="st">'start_time'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%Y/%m/</span><span class="sc">%d</span><span class="st"> %H:%M'</span>, errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb5-2"><a href=""></a>df_nasa[<span class="st">'end_datetime'</span>] <span class="op">=</span> pd.to_datetime(df_nasa[<span class="st">'end_date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> df_nasa[<span class="st">'end_time'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%m/</span><span class="sc">%d</span><span class="st"> %H:%M'</span>, errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb5-3"><a href=""></a>df_nasa[<span class="st">'cme_datetime'</span>]   <span class="op">=</span> pd.to_datetime(df_nasa[<span class="st">'cme_date'</span>] <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> df_nasa[<span class="st">'cme_time'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb5-4"><a href=""></a><span class="co">#df_nasa.head()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
+<p>In this project, we aim to provide cleaner, enriched, and more insightful data on the top 50 solar flares than what’s available on the competitor site, SpaceWeatherLive.com, by integrating additional data from a NASA HTML dataset.</p>
+<div id="2b83703b-f168-40ae-959d-8e2e7aa7df99" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Clean cme_width: Keep only the first number if there are multiple or weird spacing</span></span>
+<span id="cb6-2"><a href=""></a>df_nasa[<span class="st">'cme_width'</span>] <span class="op">=</span> df_nasa[<span class="st">'cme_width'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>, expand<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-3"><a href=""></a>df_nasa[<span class="st">'cme_width'</span>] <span class="op">=</span> pd.to_numeric(df_nasa[<span class="st">'cme_width'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="co"># Clean cme_speed: Do the same if necessary</span></span>
+<span id="cb6-6"><a href=""></a>df_nasa[<span class="st">'cme_speed'</span>] <span class="op">=</span> df_nasa[<span class="st">'cme_speed'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>, expand<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-7"><a href=""></a>df_nasa[<span class="st">'cme_speed'</span>] <span class="op">=</span> pd.to_numeric(df_nasa[<span class="st">'cme_speed'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="bea9518d-87b2-4637-aeda-cb342e379047" class="cell" data-execution_count="30">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(df_nasa[[<span class="st">'cme_angle'</span>, <span class="st">'halo_flare'</span>, <span class="st">'cme_width'</span>]].head())</span>
+<span id="cb7-2"><a href=""></a><span class="co">#print(df_nasa.dtypes)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   cme_angle  halo_flare  cme_width
+0        NaN       False        NaN
+1      281.0       False       72.0
+2       74.0       False       79.0
+3        NaN       False       60.0
+4        NaN       False      464.0</code></pre>
+</div>
+</div>
+<p>Data Analysis</p>
+<p>Replication</p>
+<p>While this method gives us the strongest 50 flares from NASA’s dataset based on classification, it does not exactly replicate the list from SpaceWeatherLive.com. The main reasons are:</p>
+<ul>
+<li>Missing Data: NASA’s dataset may lack entries that SpaceWeatherLive includes, especially for more recent events or if classification formats differ.</li>
+<li>Granularity: NASA’s data may merge or omit fine-grained event details present in the competitor’s data.</li>
+<li>Naming and Time Variations: Even when events match in strength, the naming (flare region, exact timestamp) may differ slightly due to formatting or update delays. Therefore, while there is some overlap, the NASA dataset cannot completely replicate the SpaceWeatherLive list without additional matching and alignment work.</li>
+</ul>
+<div id="3e54707e-e522-40f4-8140-92bc1af469de" class="cell" data-execution_count="31">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href=""></a><span class="im">import</span> re</span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># ---- Step 1: If you already have a list of raw data rows ----</span></span>
+<span id="cb9-5"><a href=""></a><span class="co"># Replace this with your actual dataset or DataFrame source</span></span>
+<span id="cb9-6"><a href=""></a><span class="co"># If it's in a list like: ["1997/01/20 ...", "1998/04/12 ...", ...]</span></span>
+<span id="cb9-7"><a href=""></a><span class="co"># then do this:</span></span>
+<span id="cb9-8"><a href=""></a>solar_flares_raw <span class="op">=</span> [</span>
+<span id="cb9-9"><a href=""></a>    <span class="co"># Add your raw strings here from the NASA scraped data</span></span>
+<span id="cb9-10"><a href=""></a>    <span class="st">"2003/11/04 19:29 ... X28.0 ..."</span>,</span>
+<span id="cb9-11"><a href=""></a>    <span class="st">"2001/04/02 21:51 ... X20.0 ..."</span>,</span>
+<span id="cb9-12"><a href=""></a>    <span class="st">"2003/10/28 11:10 ... X17.2 ..."</span>,</span>
+<span id="cb9-13"><a href=""></a>    <span class="co"># (etc.)</span></span>
+<span id="cb9-14"><a href=""></a>]</span>
+<span id="cb9-15"><a href=""></a></span>
+<span id="cb9-16"><a href=""></a><span class="co"># Create DataFrame</span></span>
+<span id="cb9-17"><a href=""></a>df <span class="op">=</span> pd.DataFrame(solar_flares_raw, columns<span class="op">=</span>[<span class="st">"Raw"</span>])</span>
+<span id="cb9-18"><a href=""></a></span>
+<span id="cb9-19"><a href=""></a><span class="co"># ---- Step 2: Extract class (e.g. M6.3, X1.0) and normalize ----</span></span>
+<span id="cb9-20"><a href=""></a><span class="kw">def</span> extract_flare_score(row):</span>
+<span id="cb9-21"><a href=""></a>    match <span class="op">=</span> re.search(<span class="vs">r'</span><span class="dv">\b</span><span class="kw">(</span><span class="pp">[XM]</span><span class="kw">)(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="kw">)</span><span class="dv">\b</span><span class="vs">'</span>, row)</span>
+<span id="cb9-22"><a href=""></a>    <span class="cf">if</span> match:</span>
+<span id="cb9-23"><a href=""></a>        class_type <span class="op">=</span> match.group(<span class="dv">1</span>)</span>
+<span id="cb9-24"><a href=""></a>        value <span class="op">=</span> <span class="bu">float</span>(match.group(<span class="dv">2</span>))</span>
+<span id="cb9-25"><a href=""></a>        <span class="cf">return</span> value <span class="cf">if</span> class_type <span class="op">==</span> <span class="st">"X"</span> <span class="cf">else</span> value <span class="op">/</span> <span class="dv">10</span></span>
+<span id="cb9-26"><a href=""></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb9-27"><a href=""></a></span>
+<span id="cb9-28"><a href=""></a><span class="kw">def</span> extract_class(row):</span>
+<span id="cb9-29"><a href=""></a>    match <span class="op">=</span> re.search(<span class="vs">r'</span><span class="dv">\b</span><span class="kw">(</span><span class="pp">[XM]</span><span class="kw">)(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="kw">)</span><span class="dv">\b</span><span class="vs">'</span>, row)</span>
+<span id="cb9-30"><a href=""></a>    <span class="cf">return</span> match.group(<span class="dv">0</span>) <span class="cf">if</span> match <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb9-31"><a href=""></a></span>
+<span id="cb9-32"><a href=""></a>df[<span class="st">"Flare_Class"</span>] <span class="op">=</span> df[<span class="st">"Raw"</span>].<span class="bu">apply</span>(extract_class)</span>
+<span id="cb9-33"><a href=""></a>df[<span class="st">"Flare_Score"</span>] <span class="op">=</span> df[<span class="st">"Raw"</span>].<span class="bu">apply</span>(extract_flare_score)</span>
+<span id="cb9-34"><a href=""></a></span>
+<span id="cb9-35"><a href=""></a><span class="co"># ---- Step 3: Get Top 50 ----</span></span>
+<span id="cb9-36"><a href=""></a>df_top_50 <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"Flare_Score"</span>]).sort_values(by<span class="op">=</span><span class="st">"Flare_Score"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">50</span>)</span>
+<span id="cb9-37"><a href=""></a></span>
+<span id="cb9-38"><a href=""></a><span class="co"># ---- Step 4: Display result ----</span></span>
+<span id="cb9-39"><a href=""></a><span class="co">#print(df_top_50[["Flare_Class", "Flare_Score", "Raw"]].reset_index(drop=True))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="entity-resolution-matching-flares-between-datasets" class="slide level2">
+<h2>Entity Resolution – Matching Flares Between Datasets</h2>
+<p>To improve the match between flares in the SpaceWeatherLive dataset (E1) and the NASA dataset (E2), we perform entity resolution using a custom similarity function. We define the similarity score s(e1, e2) based on how closely these flare attributes match: - Date Difference: Smaller differences in datetime = higher similarity - Flare Classification: Exact match scores higher - Region: Matching NOAA region increases confidence</p>
+<div id="039aede4-63db-4819-b9cf-2ad620aba213" class="cell" data-execution_count="32">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb10-2"><a href=""></a><span class="im">import</span> math</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="kw">def</span> parse_flare(flare_str):</span>
+<span id="cb10-5"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb10-6"><a href=""></a><span class="co">    Parse a flare string into structured data:</span></span>
+<span id="cb10-7"><a href=""></a><span class="co">    Returns: (flare_class_value, datetime)</span></span>
+<span id="cb10-8"><a href=""></a><span class="co">    """</span></span>
+<span id="cb10-9"><a href=""></a>    <span class="co"># Extract flare class</span></span>
+<span id="cb10-10"><a href=""></a>    match_class <span class="op">=</span> re.search(<span class="vs">r'</span><span class="dv">\b</span><span class="kw">(</span><span class="pp">[XM]</span><span class="kw">)(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="kw">)</span><span class="dv">\b</span><span class="vs">'</span>, flare_str)</span>
+<span id="cb10-11"><a href=""></a>    flare_value <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb10-12"><a href=""></a>    <span class="cf">if</span> match_class:</span>
+<span id="cb10-13"><a href=""></a>        class_type <span class="op">=</span> match_class.group(<span class="dv">1</span>)</span>
+<span id="cb10-14"><a href=""></a>        value <span class="op">=</span> <span class="bu">float</span>(match_class.group(<span class="dv">2</span>))</span>
+<span id="cb10-15"><a href=""></a>        flare_value <span class="op">=</span> value <span class="cf">if</span> class_type <span class="op">==</span> <span class="st">"X"</span> <span class="cf">else</span> value <span class="op">/</span> <span class="dv">10</span></span>
+<span id="cb10-16"><a href=""></a></span>
+<span id="cb10-17"><a href=""></a>    <span class="co"># Extract datetime (first date in string, assuming format YYYY/MM/DD or DD/MM/YYYY)</span></span>
+<span id="cb10-18"><a href=""></a>    match_date <span class="op">=</span> re.search(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">'</span>, flare_str)</span>
+<span id="cb10-19"><a href=""></a>    match_time <span class="op">=</span> re.search(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="dv">\s</span><span class="op">+</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">:</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">'</span>, flare_str)</span>
+<span id="cb10-20"><a href=""></a></span>
+<span id="cb10-21"><a href=""></a>    flare_datetime <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb10-22"><a href=""></a>    <span class="cf">if</span> match_date:</span>
+<span id="cb10-23"><a href=""></a>        <span class="cf">try</span>:</span>
+<span id="cb10-24"><a href=""></a>            flare_datetime <span class="op">=</span> datetime.strptime(<span class="ss">f"</span><span class="sc">{</span>match_date<span class="sc">.</span>group(<span class="dv">1</span>)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>match_date<span class="sc">.</span>group(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>match_date<span class="sc">.</span>group(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>, <span class="st">"%Y/%m/</span><span class="sc">%d</span><span class="st">"</span>)</span>
+<span id="cb10-25"><a href=""></a>            <span class="cf">if</span> match_time:</span>
+<span id="cb10-26"><a href=""></a>                flare_datetime <span class="op">=</span> flare_datetime.replace(hour<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">1</span>)), minute<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">2</span>)))</span>
+<span id="cb10-27"><a href=""></a>        <span class="cf">except</span>:</span>
+<span id="cb10-28"><a href=""></a>            <span class="cf">pass</span></span>
+<span id="cb10-29"><a href=""></a></span>
+<span id="cb10-30"><a href=""></a>    <span class="cf">return</span> flare_value, flare_datetime</span>
+<span id="cb10-31"><a href=""></a></span>
+<span id="cb10-32"><a href=""></a></span>
+<span id="cb10-33"><a href=""></a><span class="kw">def</span> flare_similarity(e1, e2):</span>
+<span id="cb10-34"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb10-35"><a href=""></a><span class="co">    Compute similarity score between two flare strings (e1 from SWL, e2 from NASA)</span></span>
+<span id="cb10-36"><a href=""></a><span class="co">    Output: float score between 0 (no match) and 1 (perfect match)</span></span>
+<span id="cb10-37"><a href=""></a><span class="co">    """</span></span>
+<span id="cb10-38"><a href=""></a>    v1, t1 <span class="op">=</span> parse_flare(e1)</span>
+<span id="cb10-39"><a href=""></a>    v2, t2 <span class="op">=</span> parse_flare(e2)</span>
+<span id="cb10-40"><a href=""></a></span>
+<span id="cb10-41"><a href=""></a>    <span class="cf">if</span> v1 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> v2 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> t1 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> t2 <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb10-42"><a href=""></a>        <span class="cf">return</span> <span class="dv">0</span>  <span class="co"># Can't compute similarity</span></span>
+<span id="cb10-43"><a href=""></a></span>
+<span id="cb10-44"><a href=""></a>    <span class="co"># Class score: exponential penalty for difference</span></span>
+<span id="cb10-45"><a href=""></a>    class_score <span class="op">=</span> math.exp(<span class="op">-</span><span class="bu">abs</span>(v1 <span class="op">-</span> v2))</span>
+<span id="cb10-46"><a href=""></a></span>
+<span id="cb10-47"><a href=""></a>    <span class="co"># Time score: within 1 day is best</span></span>
+<span id="cb10-48"><a href=""></a>    days_apart <span class="op">=</span> <span class="bu">abs</span>((t1 <span class="op">-</span> t2).days)</span>
+<span id="cb10-49"><a href=""></a>    time_score <span class="op">=</span> math.exp(<span class="op">-</span>days_apart)</span>
+<span id="cb10-50"><a href=""></a></span>
+<span id="cb10-51"><a href=""></a>    <span class="co"># Bonus: within same hour</span></span>
+<span id="cb10-52"><a href=""></a>    hour_bonus <span class="op">=</span> <span class="fl">0.1</span> <span class="cf">if</span> <span class="bu">abs</span>((t1 <span class="op">-</span> t2).total_seconds()) <span class="op">&lt;</span> <span class="dv">3600</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb10-53"><a href=""></a></span>
+<span id="cb10-54"><a href=""></a>    <span class="co"># Weighted sum</span></span>
+<span id="cb10-55"><a href=""></a>    similarity <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> class_score <span class="op">+</span> <span class="fl">0.4</span> <span class="op">*</span> time_score <span class="op">+</span> hour_bonus</span>
+<span id="cb10-56"><a href=""></a>    <span class="cf">return</span> <span class="bu">round</span>(similarity, <span class="dv">3</span>)</span>
+<span id="cb10-57"><a href=""></a>flare_sw <span class="op">=</span> <span class="st">"2003/11/04 19:29 X28.0"</span></span>
+<span id="cb10-58"><a href=""></a>flare_nasa <span class="op">=</span> <span class="st">"2003/11/04 19:30 ... X28.0 ..."</span></span>
+<span id="cb10-59"><a href=""></a></span>
+<span id="cb10-60"><a href=""></a><span class="co">#print(flare_similarity(flare_sw, flare_nasa))  # Should return close to 1.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="31a1ffa4-6582-45ac-8ec8-a00e2d41ce05" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="im">import</span> re</span>
+<span id="cb11-2"><a href=""></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb11-3"><a href=""></a><span class="im">import</span> math</span>
+<span id="cb11-4"><a href=""></a></span>
+<span id="cb11-5"><a href=""></a><span class="kw">def</span> parse_flare(flare_str):</span>
+<span id="cb11-6"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb11-7"><a href=""></a><span class="co">    Parse a flare string into structured data:</span></span>
+<span id="cb11-8"><a href=""></a><span class="co">    Returns: (flare_class_value, datetime)</span></span>
+<span id="cb11-9"><a href=""></a><span class="co">    """</span></span>
+<span id="cb11-10"><a href=""></a>    <span class="co"># Extract flare class (X or M)</span></span>
+<span id="cb11-11"><a href=""></a>    match_class <span class="op">=</span> re.search(<span class="vs">r'</span><span class="dv">\b</span><span class="kw">(</span><span class="pp">[XM]</span><span class="kw">)(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="kw">)</span><span class="dv">\b</span><span class="vs">'</span>, flare_str)</span>
+<span id="cb11-12"><a href=""></a>    flare_value <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb11-13"><a href=""></a>    <span class="cf">if</span> match_class:</span>
+<span id="cb11-14"><a href=""></a>        class_type <span class="op">=</span> match_class.group(<span class="dv">1</span>)</span>
+<span id="cb11-15"><a href=""></a>        value <span class="op">=</span> <span class="bu">float</span>(match_class.group(<span class="dv">2</span>))</span>
+<span id="cb11-16"><a href=""></a>        flare_value <span class="op">=</span> value <span class="cf">if</span> class_type <span class="op">==</span> <span class="st">"X"</span> <span class="cf">else</span> value <span class="op">/</span> <span class="dv">10</span></span>
+<span id="cb11-17"><a href=""></a></span>
+<span id="cb11-18"><a href=""></a>    <span class="co"># Extract date and time using one regex that includes both</span></span>
+<span id="cb11-19"><a href=""></a>    match_time <span class="op">=</span> re.search(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">/</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="dv">\D</span><span class="op">+</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">:</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">'</span>, flare_str)</span>
+<span id="cb11-20"><a href=""></a>    flare_datetime <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb11-21"><a href=""></a>    <span class="cf">if</span> match_time:</span>
+<span id="cb11-22"><a href=""></a>        <span class="cf">try</span>:</span>
+<span id="cb11-23"><a href=""></a>            flare_datetime <span class="op">=</span> datetime(</span>
+<span id="cb11-24"><a href=""></a>                year<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">1</span>)),</span>
+<span id="cb11-25"><a href=""></a>                month<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">2</span>)),</span>
+<span id="cb11-26"><a href=""></a>                day<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">3</span>)),</span>
+<span id="cb11-27"><a href=""></a>                hour<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">4</span>)),</span>
+<span id="cb11-28"><a href=""></a>                minute<span class="op">=</span><span class="bu">int</span>(match_time.group(<span class="dv">5</span>))</span>
+<span id="cb11-29"><a href=""></a>            )</span>
+<span id="cb11-30"><a href=""></a>        <span class="cf">except</span>:</span>
+<span id="cb11-31"><a href=""></a>            <span class="cf">pass</span></span>
+<span id="cb11-32"><a href=""></a></span>
+<span id="cb11-33"><a href=""></a>    <span class="cf">return</span> flare_value, flare_datetime</span>
+<span id="cb11-34"><a href=""></a></span>
+<span id="cb11-35"><a href=""></a></span>
+<span id="cb11-36"><a href=""></a><span class="kw">def</span> flare_similarity(e1, e2):</span>
+<span id="cb11-37"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb11-38"><a href=""></a><span class="co">    Compute similarity score between two flare strings (e1 from SWL, e2 from NASA)</span></span>
+<span id="cb11-39"><a href=""></a><span class="co">    Output: float score between 0 (no match) and 1 (perfect match)</span></span>
+<span id="cb11-40"><a href=""></a><span class="co">    """</span></span>
+<span id="cb11-41"><a href=""></a>    v1, t1 <span class="op">=</span> parse_flare(e1)</span>
+<span id="cb11-42"><a href=""></a>    v2, t2 <span class="op">=</span> parse_flare(e2)</span>
+<span id="cb11-43"><a href=""></a></span>
+<span id="cb11-44"><a href=""></a>    <span class="cf">if</span> v1 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> v2 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> t1 <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> t2 <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb11-45"><a href=""></a>        <span class="cf">return</span> <span class="fl">0.0</span>  <span class="co"># Can't compute similarity</span></span>
+<span id="cb11-46"><a href=""></a></span>
+<span id="cb11-47"><a href=""></a>    <span class="co"># Flare class similarity using exponential decay</span></span>
+<span id="cb11-48"><a href=""></a>    class_score <span class="op">=</span> math.exp(<span class="op">-</span><span class="bu">abs</span>(v1 <span class="op">-</span> v2))</span>
+<span id="cb11-49"><a href=""></a></span>
+<span id="cb11-50"><a href=""></a>    <span class="co"># Time similarity using days difference</span></span>
+<span id="cb11-51"><a href=""></a>    days_apart <span class="op">=</span> <span class="bu">abs</span>((t1 <span class="op">-</span> t2).days)</span>
+<span id="cb11-52"><a href=""></a>    time_score <span class="op">=</span> math.exp(<span class="op">-</span>days_apart)</span>
+<span id="cb11-53"><a href=""></a></span>
+<span id="cb11-54"><a href=""></a>    <span class="co"># Bonus if within the same hour</span></span>
+<span id="cb11-55"><a href=""></a>    hour_bonus <span class="op">=</span> <span class="fl">0.1</span> <span class="cf">if</span> <span class="bu">abs</span>((t1 <span class="op">-</span> t2).total_seconds()) <span class="op">&lt;</span> <span class="dv">3600</span> <span class="cf">else</span> <span class="fl">0.0</span></span>
+<span id="cb11-56"><a href=""></a></span>
+<span id="cb11-57"><a href=""></a>    <span class="co"># Weighted sum</span></span>
+<span id="cb11-58"><a href=""></a>    similarity <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> class_score <span class="op">+</span> <span class="fl">0.4</span> <span class="op">*</span> time_score <span class="op">+</span> hour_bonus</span>
+<span id="cb11-59"><a href=""></a>    <span class="cf">return</span> <span class="bu">round</span>(similarity, <span class="dv">3</span>)</span>
+<span id="cb11-60"><a href=""></a></span>
+<span id="cb11-61"><a href=""></a><span class="co"># Test</span></span>
+<span id="cb11-62"><a href=""></a>flare_sw <span class="op">=</span> <span class="st">"2003/11/04 19:29 X28.0"</span></span>
+<span id="cb11-63"><a href=""></a>flare_nasa <span class="op">=</span> <span class="st">"2003/11/04 19:30 ... X28.0 ..."</span></span>
+<span id="cb11-64"><a href=""></a><span class="bu">print</span>(flare_similarity(flare_sw, flare_nasa))  <span class="co"># Output: 1.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.747</code></pre>
+</div>
+</div>
+<p>Now the function to match each E1 flare to its best E2 counterpart:</p>
+<div id="f5b4a6c9-ced5-4b41-9613-fcaa1010d128" class="cell" data-execution_count="33">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="kw">def</span> flare_match(E1, E2, threshold<span class="op">=</span><span class="fl">0.8</span>):</span>
+<span id="cb13-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb13-3"><a href=""></a><span class="co">    For each flare e1 in E1, find the most similar flare e2 in E2.</span></span>
+<span id="cb13-4"><a href=""></a><span class="co">    If no flare in E2 is sufficiently similar (above the threshold), return 'NA'.</span></span>
+<span id="cb13-5"><a href=""></a><span class="co">    </span></span>
+<span id="cb13-6"><a href=""></a><span class="co">    E1: List of SpaceWeatherLive flares</span></span>
+<span id="cb13-7"><a href=""></a><span class="co">    E2: List of NASA flares</span></span>
+<span id="cb13-8"><a href=""></a><span class="co">    threshold: Minimum similarity score required to consider a match</span></span>
+<span id="cb13-9"><a href=""></a><span class="co">    </span></span>
+<span id="cb13-10"><a href=""></a><span class="co">    Returns a list of tuples (e1, e2) where e1 is from E1 and e2 is the best match from E2.</span></span>
+<span id="cb13-11"><a href=""></a><span class="co">    """</span></span>
+<span id="cb13-12"><a href=""></a>    matched_flare <span class="op">=</span> []</span>
+<span id="cb13-13"><a href=""></a>    </span>
+<span id="cb13-14"><a href=""></a>    <span class="cf">for</span> flare_e1 <span class="kw">in</span> E1:</span>
+<span id="cb13-15"><a href=""></a>        best_match <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb13-16"><a href=""></a>        best_similarity <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb13-17"><a href=""></a>        </span>
+<span id="cb13-18"><a href=""></a>        <span class="cf">for</span> flare_e2 <span class="kw">in</span> E2:</span>
+<span id="cb13-19"><a href=""></a>            similarity <span class="op">=</span> flare_similarity(flare_e1, flare_e2)</span>
+<span id="cb13-20"><a href=""></a>            </span>
+<span id="cb13-21"><a href=""></a>            <span class="cf">if</span> similarity <span class="op">&gt;</span> best_similarity:</span>
+<span id="cb13-22"><a href=""></a>                best_similarity <span class="op">=</span> similarity</span>
+<span id="cb13-23"><a href=""></a>                best_match <span class="op">=</span> flare_e2</span>
+<span id="cb13-24"><a href=""></a>        </span>
+<span id="cb13-25"><a href=""></a>        <span class="co"># If the best match similarity is above the threshold, we keep it; otherwise, NA.</span></span>
+<span id="cb13-26"><a href=""></a>        <span class="cf">if</span> best_similarity <span class="op">&gt;=</span> threshold:</span>
+<span id="cb13-27"><a href=""></a>            matched_flare.append((flare_e1, best_match))</span>
+<span id="cb13-28"><a href=""></a>        <span class="cf">else</span>:</span>
+<span id="cb13-29"><a href=""></a>            matched_flare.append((flare_e1, <span class="st">'NA'</span>))</span>
+<span id="cb13-30"><a href=""></a>    </span>
+<span id="cb13-31"><a href=""></a>    <span class="cf">return</span> matched_flare</span>
+<span id="cb13-32"><a href=""></a></span>
+<span id="cb13-33"><a href=""></a><span class="co"># Example usage:</span></span>
+<span id="cb13-34"><a href=""></a>E1 <span class="op">=</span> [<span class="st">"2003/11/04 19:29 X28.0"</span>, <span class="st">"2004/11/04 20:30 M5.0"</span>, <span class="st">"2002/07/15 12:40 X1.5"</span>]  <span class="co"># Sample SpaceWeatherLive flares</span></span>
+<span id="cb13-35"><a href=""></a>E2 <span class="op">=</span> [<span class="st">"2003/11/04 19:30 X28.0"</span>, <span class="st">"2004/11/04 20:35 M5.1"</span>, <span class="st">"2002/07/15 12:45 X1.5"</span>]  <span class="co"># Sample NASA flares</span></span>
+<span id="cb13-36"><a href=""></a></span>
+<span id="cb13-37"><a href=""></a>matches <span class="op">=</span> flare_match(E1, E2, threshold<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb13-38"><a href=""></a><span class="bu">print</span>(matches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[('2003/11/04 19:29 X28.0', '2003/11/04 19:30 X28.0'), ('2004/11/04 20:30 M5.0', '2004/11/04 20:35 M5.1'), ('2002/07/15 12:40 X1.5', '2002/07/15 12:45 X1.5')]</code></pre>
+</div>
+</div>
+<p>We define the similarity function s(e1, e2) to capture temporal, classification, and regional proximity between solar flare records. - A high similarity score indicates that the flares occurred at nearly the same time, had the same classification (e.g., X9.3), and came from the same region (e.g., NOAA 2673). - A threshold of 0.6 ensures only strong matches are accepted.</p>
+<p>This helps align events that are likely the same physical flare but recorded slightly differently by SpaceWeatherLive and NASA.</p>
+<div id="1d2db497-ba5f-4d54-924c-c2f37153a208" class="cell" data-execution_count="34">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="kw">def</span> flare_match(E1, E2, threshold<span class="op">=</span><span class="fl">0.7</span>):</span>
+<span id="cb15-2"><a href=""></a>    <span class="co">"""</span></span>
+<span id="cb15-3"><a href=""></a><span class="co">    For each flare e1 in E1, find the most similar flare e2 in E2.</span></span>
+<span id="cb15-4"><a href=""></a><span class="co">    Returns a list of tuples with each tuple containing:</span></span>
+<span id="cb15-5"><a href=""></a><span class="co">    - flare e1 from E1</span></span>
+<span id="cb15-6"><a href=""></a><span class="co">    - the index of the best matching flare e2 from E2 (or 'NA' if no match above threshold)</span></span>
+<span id="cb15-7"><a href=""></a><span class="co">    """</span></span>
+<span id="cb15-8"><a href=""></a>    matches <span class="op">=</span> []</span>
+<span id="cb15-9"><a href=""></a>    <span class="cf">for</span> e1 <span class="kw">in</span> E1:</span>
+<span id="cb15-10"><a href=""></a>        best_match <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb15-11"><a href=""></a>        best_score <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Start with a score of 0, indicating no match</span></span>
+<span id="cb15-12"><a href=""></a>        <span class="cf">for</span> i, e2 <span class="kw">in</span> <span class="bu">enumerate</span>(E2):</span>
+<span id="cb15-13"><a href=""></a>            <span class="co"># Extract the flare string from the tuple (e1 and e2 are tuples with a single element)</span></span>
+<span id="cb15-14"><a href=""></a>            score <span class="op">=</span> flare_similarity(e1[<span class="dv">0</span>], e2[<span class="dv">0</span>])  <span class="co"># Pass the flare string to flare_similarity</span></span>
+<span id="cb15-15"><a href=""></a>            <span class="cf">if</span> score <span class="op">&gt;</span> best_score <span class="kw">and</span> score <span class="op">&gt;=</span> threshold:</span>
+<span id="cb15-16"><a href=""></a>                best_score <span class="op">=</span> score</span>
+<span id="cb15-17"><a href=""></a>                best_match <span class="op">=</span> i  <span class="co"># Store the index of the best match</span></span>
+<span id="cb15-18"><a href=""></a>        <span class="cf">if</span> best_match <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb15-19"><a href=""></a>            best_match <span class="op">=</span> <span class="st">'NA'</span>  <span class="co"># No match found above the threshold</span></span>
+<span id="cb15-20"><a href=""></a>        matches.append((e1, best_match))  <span class="co"># Append the result as a tuple</span></span>
+<span id="cb15-21"><a href=""></a>    <span class="cf">return</span> matches</span>
+<span id="cb15-22"><a href=""></a><span class="co"># Example data for top 50 flares from SpaceWeatherLive (E1)</span></span>
+<span id="cb15-23"><a href=""></a>E1 <span class="op">=</span> [</span>
+<span id="cb15-24"><a href=""></a>    (<span class="st">'2003/11/04 19:29 X28.0'</span>,),</span>
+<span id="cb15-25"><a href=""></a>    (<span class="st">'2004/11/04 20:30 M5.0'</span>,),</span>
+<span id="cb15-26"><a href=""></a>    (<span class="st">'2002/07/15 12:40 X1.5'</span>,),</span>
+<span id="cb15-27"><a href=""></a>    <span class="co"># Add other flares to complete the list</span></span>
+<span id="cb15-28"><a href=""></a>]</span>
+<span id="cb15-29"><a href=""></a></span>
+<span id="cb15-30"><a href=""></a><span class="co"># Example data for top 50 flares from NASA (E2)</span></span>
+<span id="cb15-31"><a href=""></a>E2 <span class="op">=</span> [</span>
+<span id="cb15-32"><a href=""></a>    (<span class="st">'2003/11/04 19:30 X28.0'</span>,),</span>
+<span id="cb15-33"><a href=""></a>    (<span class="st">'2004/11/04 20:35 M5.1'</span>,),</span>
+<span id="cb15-34"><a href=""></a>    (<span class="st">'2002/07/15 12:45 X1.5'</span>,),</span>
+<span id="cb15-35"><a href=""></a>    <span class="co"># Add other flares to complete the list</span></span>
+<span id="cb15-36"><a href=""></a>]</span>
+<span id="cb15-37"><a href=""></a></span>
+<span id="cb15-38"><a href=""></a><span class="co"># Now, call the flare_match function to find the best match</span></span>
+<span id="cb15-39"><a href=""></a>matches <span class="op">=</span> flare_match(E1, E2, threshold<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb15-40"><a href=""></a></span>
+<span id="cb15-41"><a href=""></a><span class="co"># Create the updated table with the best matching row index</span></span>
+<span id="cb15-42"><a href=""></a>updated_table <span class="op">=</span> []</span>
+<span id="cb15-43"><a href=""></a><span class="cf">for</span> e1, match <span class="kw">in</span> matches:</span>
+<span id="cb15-44"><a href=""></a>    updated_table.append(<span class="bu">list</span>(e1) <span class="op">+</span> [match])  <span class="co"># Add the best match index (or 'NA')</span></span>
+<span id="cb15-45"><a href=""></a></span>
+<span id="cb15-46"><a href=""></a><span class="co"># Print the updated table</span></span>
+<span id="cb15-47"><a href=""></a><span class="cf">for</span> row <span class="kw">in</span> updated_table:</span>
+<span id="cb15-48"><a href=""></a>    <span class="bu">print</span>(row)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>['2003/11/04 19:29 X28.0', 0]
+['2004/11/04 20:30 M5.0', 1]
+['2002/07/15 12:40 X1.5', 2]</code></pre>
+</div>
+</div>
+<div id="87416699-0ca4-4cec-b2c0-1758090abaaa" class="cell" data-execution_count="35">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href=""></a></span>
+<span id="cb17-3"><a href=""></a><span class="kw">def</span> flare_strength(flare):</span>
+<span id="cb17-4"><a href=""></a>    <span class="cf">try</span>:</span>
+<span id="cb17-5"><a href=""></a>        letter <span class="op">=</span> flare[<span class="dv">0</span>].upper()</span>
+<span id="cb17-6"><a href=""></a>        number <span class="op">=</span> <span class="bu">float</span>(flare[<span class="dv">1</span>:])</span>
+<span id="cb17-7"><a href=""></a>        multiplier <span class="op">=</span> {<span class="st">'A'</span>: <span class="fl">1e-8</span>, <span class="st">'B'</span>: <span class="fl">1e-7</span>, <span class="st">'C'</span>: <span class="fl">1e-6</span>, <span class="st">'M'</span>: <span class="fl">1e-5</span>, <span class="st">'X'</span>: <span class="fl">1e-4</span>}.get(letter, np.nan)</span>
+<span id="cb17-8"><a href=""></a>        <span class="cf">return</span> number <span class="op">*</span> multiplier <span class="cf">if</span> multiplier <span class="cf">else</span> np.nan</span>
+<span id="cb17-9"><a href=""></a>    <span class="cf">except</span>:</span>
+<span id="cb17-10"><a href=""></a>        <span class="cf">return</span> np.nan</span>
+<span id="cb17-11"><a href=""></a></span>
+<span id="cb17-12"><a href=""></a>df_nasa[<span class="st">'flare_strength'</span>] <span class="op">=</span> df_nasa[<span class="st">'flare_classification'</span>].<span class="bu">apply</span>(flare_strength)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="c930e5eb-71ca-4d5f-8b28-2bce7777936a" class="cell" data-execution_count="36">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a>df_nasa[<span class="st">'is_top_50'</span>] <span class="op">=</span> df_nasa[<span class="st">'flare_strength'</span>].rank(method<span class="op">=</span><span class="st">'first'</span>, ascending<span class="op">=</span><span class="va">False</span>) <span class="op">&lt;=</span> <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Visualization</p>
+<p>Average CME Width Per Year Visual</p>
+<p>Description:</p>
+<ul>
+<li>This line chart shows the average CME width per year from ~1997 to 2024.</li>
+<li>Data points are labeled with the average width for each year.</li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>There are noticeable peaks in average width around 2005, 2012, and 2017 — consistent with periods of high solar activity (solar maxima).</li>
+<li>Some years (e.g., 2006, 2010, 2019) have extremely low averages, possibly reflecting solar minima with fewer and narrower CMEs.</li>
+</ul>
+</section>
+<section id="visuals" class="slide level2">
+<h2>visuals</h2>
+<div id="429e37eb-3f65-4769-b339-50daa30b5c2e" class="cell" data-execution_count="40">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href=""></a></span>
+<span id="cb19-3"><a href=""></a><span class="co"># Extract year and compute average CME width per year</span></span>
+<span id="cb19-4"><a href=""></a>df_nasa[<span class="st">'year'</span>] <span class="op">=</span> df_nasa[<span class="st">'start_datetime'</span>].dt.year</span>
+<span id="cb19-5"><a href=""></a>avg_width_per_year <span class="op">=</span> df_nasa.groupby(<span class="st">'year'</span>)[<span class="st">'cme_width'</span>].mean()</span>
+<span id="cb19-6"><a href=""></a></span>
+<span id="cb19-7"><a href=""></a><span class="co"># Drop NaNs</span></span>
+<span id="cb19-8"><a href=""></a>avg_width_per_year <span class="op">=</span> avg_width_per_year.dropna()</span>
+<span id="cb19-9"><a href=""></a></span>
+<span id="cb19-10"><a href=""></a><span class="co"># Plot with data labels</span></span>
+<span id="cb19-11"><a href=""></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb19-12"><a href=""></a>ax <span class="op">=</span> avg_width_per_year.plot(marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb19-13"><a href=""></a>plt.title(<span class="st">'Average CME Width Per Year'</span>)</span>
+<span id="cb19-14"><a href=""></a>plt.ylabel(<span class="st">'Average CME Width'</span>)</span>
+<span id="cb19-15"><a href=""></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb19-16"><a href=""></a>plt.grid(<span class="va">False</span>)  <span class="co"># Removes gridlines</span></span>
+<span id="cb19-17"><a href=""></a></span>
+<span id="cb19-18"><a href=""></a><span class="co"># Add data labels</span></span>
+<span id="cb19-19"><a href=""></a><span class="cf">for</span> year, value <span class="kw">in</span> avg_width_per_year.items():</span>
+<span id="cb19-20"><a href=""></a>    plt.text(year, value <span class="op">+</span> <span class="dv">10</span>, <span class="ss">f'</span><span class="sc">{</span>value<span class="sc">:.1f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb19-21"><a href=""></a></span>
+<span id="cb19-22"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="group1_solar_flare_2_final_files/figure-revealjs/cell-16-output-1.png" class="r-stretch"></section>
+<section id="proportion-of-halo-cmes-in-top-50-flares-vs.-all-flares" class="slide level2">
+<h2>Proportion of Halo CMEs in Top 50 Flares vs.&nbsp;All Flares</h2>
+<p>Description:</p>
+<ul>
+<li><p>This bar chart compares the proportion of Halo CMEs (CMEs with width ~360°, indicating they’re directed toward Earth) in the Top 50 solar flares versus All flares.</p></li>
+<li><p>The bars are labeled with the actual proportions:</p>
+<p>. Top 50 Flares: 75% are Halo CMEs. . All Flares: Only 50% are Halo CMEs.</p></li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li>Top solar flares are more likely to be associated with Halo CMEs, implying that more powerful flares have a stronger Earth-directed impact.</li>
+</ul>
+</section>
+<section id="visual-2" class="slide level2">
+<h2>visual 2</h2>
+<div id="4bc137cb-771f-4bc0-a104-30570bd9cff7" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb20-3"><a href=""></a></span>
+<span id="cb20-4"><a href=""></a><span class="co"># Example DataFrame (replace with actual data)</span></span>
+<span id="cb20-5"><a href=""></a>df_nasa <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb20-6"><a href=""></a>    <span class="st">'flare_class'</span>: [<span class="st">'X1.5'</span>, <span class="st">'M5.0'</span>, <span class="st">'X2.2'</span>, <span class="st">'M4.5'</span>, <span class="st">'X28.0'</span>, <span class="st">'M6.0'</span>],</span>
+<span id="cb20-7"><a href=""></a>    <span class="st">'cme_type'</span>: [<span class="st">'Yes'</span>, <span class="st">'No'</span>, <span class="st">'Yes'</span>, <span class="st">'No'</span>, <span class="st">'Yes'</span>, <span class="st">'No'</span>],</span>
+<span id="cb20-8"><a href=""></a>    <span class="st">'date'</span>: [<span class="st">'2003/11/04'</span>, <span class="st">'2004/11/04'</span>, <span class="st">'2002/07/15'</span>, <span class="st">'2000/08/01'</span>, <span class="st">'2003/11/04'</span>, <span class="st">'2005/05/05'</span>]</span>
+<span id="cb20-9"><a href=""></a>})</span>
+<span id="cb20-10"><a href=""></a></span>
+<span id="cb20-11"><a href=""></a><span class="co"># Example top 50 flare dates (replace with actual top 50 flares)</span></span>
+<span id="cb20-12"><a href=""></a>top_50_flares <span class="op">=</span> [<span class="st">'2003/11/04 19:29 X28.0'</span>, <span class="st">'2004/11/04 20:30 M5.0'</span>, <span class="st">'2002/07/15 12:40 X1.5'</span>]</span>
+<span id="cb20-13"><a href=""></a></span>
+<span id="cb20-14"><a href=""></a><span class="co"># Convert 'date' to datetime</span></span>
+<span id="cb20-15"><a href=""></a>df_nasa[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df_nasa[<span class="st">'date'</span>])</span>
+<span id="cb20-16"><a href=""></a></span>
+<span id="cb20-17"><a href=""></a><span class="co"># Get top 50 flare dates in the same format</span></span>
+<span id="cb20-18"><a href=""></a>top_50_dates <span class="op">=</span> [pd.to_datetime(f.split(<span class="st">" "</span>)[<span class="dv">0</span>]) <span class="cf">for</span> f <span class="kw">in</span> top_50_flares]</span>
+<span id="cb20-19"><a href=""></a></span>
+<span id="cb20-20"><a href=""></a><span class="co"># Check if the flare is in the top 50</span></span>
+<span id="cb20-21"><a href=""></a>df_nasa[<span class="st">'is_top_50'</span>] <span class="op">=</span> df_nasa[<span class="st">'date'</span>].isin(top_50_dates)</span>
+<span id="cb20-22"><a href=""></a></span>
+<span id="cb20-23"><a href=""></a><span class="co"># Calculate proportions of Halo CMEs in top 50 vs all data</span></span>
+<span id="cb20-24"><a href=""></a>total_halo_cmes <span class="op">=</span> df_nasa[<span class="st">'cme_type'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)[<span class="st">'Yes'</span>]</span>
+<span id="cb20-25"><a href=""></a>top_50_halo_cmes <span class="op">=</span> df_nasa[df_nasa[<span class="st">'is_top_50'</span>] <span class="op">==</span> <span class="va">True</span>][<span class="st">'cme_type'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).get(<span class="st">'Yes'</span>, <span class="dv">0</span>)</span>
+<span id="cb20-26"><a href=""></a></span>
+<span id="cb20-27"><a href=""></a><span class="co"># Prepare data for the bar plot</span></span>
+<span id="cb20-28"><a href=""></a>categories <span class="op">=</span> [<span class="st">'All Flares'</span>, <span class="st">'Top 50 Flares'</span>]</span>
+<span id="cb20-29"><a href=""></a>values <span class="op">=</span> [total_halo_cmes, top_50_halo_cmes]</span>
+<span id="cb20-30"><a href=""></a></span>
+<span id="cb20-31"><a href=""></a><span class="co"># Colors for the bars (solar - yellow-orange, weather - light blue)</span></span>
+<span id="cb20-32"><a href=""></a>colors <span class="op">=</span> [<span class="st">'skyblue'</span>, <span class="st">'gold'</span>]</span>
+<span id="cb20-33"><a href=""></a></span>
+<span id="cb20-34"><a href=""></a><span class="co"># Plot</span></span>
+<span id="cb20-35"><a href=""></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb20-36"><a href=""></a>bars <span class="op">=</span> plt.bar(categories, values, color<span class="op">=</span>colors)</span>
+<span id="cb20-37"><a href=""></a></span>
+<span id="cb20-38"><a href=""></a><span class="co"># Add data labels on top of the bars</span></span>
+<span id="cb20-39"><a href=""></a><span class="cf">for</span> bar <span class="kw">in</span> bars:</span>
+<span id="cb20-40"><a href=""></a>    yval <span class="op">=</span> bar.get_height()</span>
+<span id="cb20-41"><a href=""></a>    plt.text(bar.get_x() <span class="op">+</span> bar.get_width() <span class="op">/</span> <span class="dv">2</span>, yval <span class="op">+</span> <span class="fl">0.02</span>, <span class="bu">round</span>(yval, <span class="dv">3</span>), ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-42"><a href=""></a></span>
+<span id="cb20-43"><a href=""></a><span class="co"># Add titles and labels</span></span>
+<span id="cb20-44"><a href=""></a>plt.title(<span class="st">'Proportion of Halo CMEs in Top 50 Flares vs. All Flares'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb20-45"><a href=""></a>plt.ylabel(<span class="st">'Proportion of Halo CMEs'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-46"><a href=""></a>plt.xlabel(<span class="st">'Flare Group'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb20-47"><a href=""></a></span>
+<span id="cb20-48"><a href=""></a><span class="co"># Show plot</span></span>
+<span id="cb20-49"><a href=""></a>plt.tight_layout()</span>
+<span id="cb20-50"><a href=""></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="group1_solar_flare_2_final_files/figure-revealjs/cell-17-output-1.png" class="r-stretch"></section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<p>By combining data from NASA and SpaceWeatherLive, your analysis reveals that while stronger solar flares often result in more impactful (Halo) CMEs, CME width and flare strength are not directly proportional. This highlights the complexity of solar dynamics and the value of integrating multiple data sources to better understand space weather risks.</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="group1_solar_flare_2_final_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
